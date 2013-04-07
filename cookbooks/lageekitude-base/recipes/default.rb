@@ -97,29 +97,29 @@ end
 
 cookbook_file "/var/www/bin/vcprompt" do
   source "vcprompt"
-  action :create-if-missing
+  action :create_if_missing
 end
 cookbook_file "/var/www/.vim/solarized.vim" do
   source "solarized.vim"
-  action :create-if-missing
+  action :create_if_missing
 end
 cookbook_file "/root/bin/vcprompt" do
   source "vcprompt"
-  action :create-if-missing
+  action :create_if_missing
 end
 cookbook_file "/root/.vim/solarized.vim" do
   source "solarized.vim"
-  action :create-if-missing
+  action :create_if_missing
 end
 
 [".bashrc", ".vimrc"].each do |f|
   cookbook_file "/var/www/#{f}" do
     source f
-    action :create-if-missing
+    action :create_if_missing
   end
   cookbook_file "/root/#{f}" do
     source f
-    action :create-if-missing
+    action :create_if_missing
   end
 end
 
@@ -128,4 +128,3 @@ directory "/var/www" do
   group username
   recursive true
 end
-

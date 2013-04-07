@@ -120,24 +120,22 @@ cookbook_file "/root/.vim/solarized.vim" do
 end
 
 cookbook_file "/var/www/.bashrc" do
-  source f
+  source ".bashrc"
   action :create
 end
 cookbook_file "/root/.bashrc" do
-  source f
+  source ".bashrc"
   action :create
 end
 cookbook_file "/var/www/.vimrc" do
-  source f
+  source ".vimrc"
   action :create_if_missing
 end
 cookbook_file "/root/.vimrc" do
-  source f
+  source ".vimrc"
   action :create_if_missing
 end
 
-directory "/var/www" do
-  owner username
-  group username
-  recursive true
+execute "Change permissions for #{username}" do
+  command "chown -R #{username}:#{username} /var/www"
 end

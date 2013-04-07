@@ -1,2 +1,2 @@
-cookbook_path ["/root/lageekitude_hosting/cookbooks/"]
+cookbook_path ["/root/sysadmin/lageekitude_hosting/cookbooks/"]
 

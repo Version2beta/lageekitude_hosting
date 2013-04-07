@@ -87,6 +87,7 @@ end
 user username do
   action :create
   home "/var/www/"
+  shell "/bin/bash"
   password `openssl passwd -1 "#{node['user']['password']}"`.strip
 end
 

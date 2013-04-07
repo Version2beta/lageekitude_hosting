@@ -119,6 +119,10 @@ cookbook_file "/root/.vim/solarized.vim" do
   action :create_if_missing
 end
 
+cookbook_file "/var/www/.profile" do
+  source ".profile"
+  action :create_if_missing
+end
 cookbook_file "/var/www/.bashrc" do
   source ".bashrc"
   action :create

@@ -1,4 +1,4 @@
-# Cookbook Name:: lageekitude_base
+# Cookbook Name:: lageekitude_domain
 # Recipe:: default
 #
 # Copyright 2013, Example Com
@@ -10,7 +10,6 @@
 template "/etc/nginx/sites-available/#{node['domain']['name']}.conf" do
   owner "www-data"
   group "www-data"
-  mode 00644
   source "nginx.#{node['domain']['template']}.conf"
   variables ({
     :domain => node['domain']
@@ -19,14 +18,14 @@ end
 link "/etc/nginx/sites-enabled/#{node['domain']['name']}.conf" do
   to "/etc/nginx/sites-available/#{node['domain']['name']}.conf"
 end
-directory "/var/www/#{node['domain']['name']}/htdocs" do
-  owner "www-data"
-  group "www-data"
-  mode 00666
-  recursive true
-end
-service "nginx" do
-  action :start
+[ "/var/www/#{node['domain']['name']}",
+  "/var/www/#{node['domain']['name']}/htdocs"
+].each do |d|
+  directory d do
+    owner "www-data"
+    group "www-data"
+    recursive true
+  end
 end
 
 mysql_conn = {
@@ -41,5 +40,11 @@ end
 mysql_database_user node['domain']['mysql']['dbuser'] do
   connection mysql_conn
   password node['domain']['mysql']['dbpassword']
-  action :create
+  host 'localhost'
+  database_name node['domain']['mysql']['dbname']
+  action :grant
+end
+
+service "nginx" do
+  action :start
 end

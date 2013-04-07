@@ -92,6 +92,10 @@ template "/etc/nginx/nginx.conf" do
   variables ({ :username => username })
   action :create
 end
+service "nginx" do
+  action :restart
+end
+
 user username do
   action :create
   home "/var/www/"

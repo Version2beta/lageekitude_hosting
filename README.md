@@ -18,6 +18,7 @@ To be determined. Right now, the emphasis is on Digital Ocean, 512MB / $5 per mo
 1. Create a basic build environment
 1. Install chruby
 1. Install a Ruby under chruby
+1. Install chef
 1. Clone this repository
 1. Create lageekitude-base.json
 1. Run chef-solo against lageekitude-base

@@ -81,7 +81,7 @@ template "/etc/nginx/nginx.conf" do
   action :create
 end
 user username do
-  action :modify
+  action :create
   home "/var/www/"
   password `openssl passwd -1 "#{node['user']['password']}"`.strip
 end
@@ -89,9 +89,11 @@ end
 ["bin", ".vim"].each do |d|
   directory "/root/#{d}" do
     action :create
+    recursive true
   end
   directory "/var/www/#{d}" do
     action :create
+    recursive true
   end
 end
 

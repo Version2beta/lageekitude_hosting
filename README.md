@@ -12,15 +12,17 @@ This repository provides a handful of scripts and tools useful for creating and 
 
 To be determined. Right now, the emphasis is on Digital Ocean, 512MB / $5 per month virtual private servers. The basic steps are:
 
-1. Order the server
-2. Log in
-3. Copy keys over
-4. Create a basic build environment
-5. Install chruby
-6. Install a Ruby under chruby
-7. Run chef-solo with lageekitude-base.
-8. Create (how will be determined) json files for required hosting
-9. Run chef-solo with new json files
+1. Order the server (Ubuntu 12.04LTS)
+1. Copy keys over
+1. Log in
+1. Create a basic build environment
+1. Install chruby
+1. Install a Ruby under chruby
+1. Clone this repository
+1. Create lageekitude-base.json
+1. Run chef-solo against lageekitude-base
+1. Create domain.json files
+1. Run chef-solo with new json files
 
 Of course all of this will get easier. The steps will be more automated and more friendly, and the documentation will be better.
 

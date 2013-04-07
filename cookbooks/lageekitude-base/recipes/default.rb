@@ -9,6 +9,8 @@
 
 include_recipe "python"
 
+username = node['user']['name']
+
 execute "set locale" do
   command <<-EOC
     export LANGUAGE="en_US.UTF-8"
@@ -82,7 +84,6 @@ template "/etc/php5/fpm/pool.d/www.conf" do
   variables ({ :username => username })
 end
 
-username = node['user']['name']
 template "/etc/nginx/nginx.conf" do
   source "nginx.conf"
   variables ({ :username => username })

@@ -1,0 +1,23 @@
+{
+  "python": {
+    "install_method": "package"
+  },
+  "mysql": {
+    "server_root_password": "",
+    "server_repl_password": "",
+    "server_debian_password": ""
+  },
+  "run_list": [
+    "recipe[apt]",
+    "recipe[ohai]",
+    "recipe[python]",
+    "recipe[openssl]",
+    "recipe[mysql::client]",
+    "recipe[mysql::ruby]",
+    "recipe[mysql::server]",
+    "recipe[database]",
+    "recipe[supervisord]",
+    "recipe[lageekitude-base]"
+  ]
+}
+

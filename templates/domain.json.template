@@ -1,0 +1,28 @@
+{
+  "domain": {
+    "scheme": "http://",
+    "name": "",
+    "aliases": [
+      ".qmuxs.com"
+    ],
+    "redirects": [
+      ""
+    ],
+    "template": "wordpress",
+    "mysql": {
+      "dbname": "",
+      "dbuser": "",
+      "dbpassword": ""
+    }
+  },
+  "mysql": {
+    "server_root_password": "",
+    "server_repl_password": "",
+    "server_debian_password": ""
+  },
+  "run_list": [
+    "recipe[database]",
+    "recipe[lageekitude-domain]"
+  ]
+}
+

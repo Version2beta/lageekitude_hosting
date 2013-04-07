@@ -119,15 +119,21 @@ cookbook_file "/root/.vim/solarized.vim" do
   action :create_if_missing
 end
 
-[".bashrc", ".vimrc"].each do |f|
-  cookbook_file "/var/www/#{f}" do
-    source f
-    action :create_if_missing
-  end
-  cookbook_file "/root/#{f}" do
-    source f
-    action :create_if_missing
-  end
+cookbook_file "/var/www/.bashrc" do
+  source f
+  action :create
+end
+cookbook_file "/root/.bashrc" do
+  source f
+  action :create
+end
+cookbook_file "/var/www/.vimrc" do
+  source f
+  action :create_if_missing
+end
+cookbook_file "/root/.vimrc" do
+  source f
+  action :create_if_missing
 end
 
 directory "/var/www" do

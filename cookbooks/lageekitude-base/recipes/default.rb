@@ -104,6 +104,7 @@ end
 
 cookbook_file "/var/www/bin/vcprompt" do
   source "vcprompt"
+  mode 00555
   action :create_if_missing
 end
 cookbook_file "/var/www/.vim/solarized.vim" do

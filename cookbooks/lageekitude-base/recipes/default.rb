@@ -21,6 +21,10 @@ execute "set locale" do
   only_if { `locale | grep -c UTF-8`.to_i == 0 }
 end
 
+execute "chruby in .bashrc" do
+  command "echo 'source /usr/local/share/chruby/chruby.sh && chruby 1.9.3' >> /root/.bashrc"
+end
+
 execute "apt-get upgrade" do
   command "apt-get -q -y upgrade"
 end

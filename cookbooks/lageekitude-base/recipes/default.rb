@@ -84,7 +84,7 @@ template "/etc/php5/fpm/pool.d/www.conf" do
   variables ({ :username => username })
 end
 service "php5-fpm" do
-  action: restart
+  action :restart
 end
 
 template "/etc/nginx/nginx.conf" do

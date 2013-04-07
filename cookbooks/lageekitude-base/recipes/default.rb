@@ -77,6 +77,10 @@ execute "configure php-fpm" do
   EOC
   not_if { ::File.exists?("/etc/php5/fpm/.recipe.flag") }
 end
+template "/etc/php5/fpm/pool.d/www.conf" do
+  source "www.conf"
+  variables ({ :username => username })
+end
 
 username = node['user']['name']
 template "/etc/nginx/nginx.conf" do

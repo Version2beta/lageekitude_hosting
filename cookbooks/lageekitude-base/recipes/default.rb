@@ -25,7 +25,7 @@ gem_package "ruby-shadow" do
   action :install
 end
 execute "apt-get upgrade" do
-  command "apt-get upgrade"
+  command "apt-get -q -y upgrade"
 end
 execute "reboot" do
   command "reboot -f"

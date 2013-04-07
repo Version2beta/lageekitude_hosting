@@ -7,9 +7,9 @@
 
 # execute 'DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" dist-upgrade'
 
+username = node['user']['name']
+
 template "/etc/nginx/sites-available/#{node['domain']['name']}.conf" do
-  owner "www-data"
-  group "www-data"
   source "nginx.#{node['domain']['template']}.conf"
   variables ({
     :domain => node['domain']
@@ -22,8 +22,8 @@ end
   "/var/www/#{node['domain']['name']}/htdocs"
 ].each do |d|
   directory d do
-    owner "www-data"
-    group "www-data"
+    owner username
+    group username
     recursive true
   end
 end

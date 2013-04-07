@@ -9,6 +9,10 @@
 
 username = node['user']['name']
 
+service "nginx" do
+  action :stop
+end
+
 template "/etc/nginx/sites-available/#{node['domain']['name']}.conf" do
   source "nginx.#{node['domain']['template']}.conf"
   variables ({
@@ -28,6 +32,10 @@ end
   end
 end
 
+service "nginx" do
+  action :start
+end
+
 mysql_conn = {
   :host => "localhost",
   :username => "root",
@@ -43,8 +51,4 @@ mysql_database_user node['domain']['mysql']['dbuser'] do
   host 'localhost'
   database_name node['domain']['mysql']['dbname']
   action :grant
-end
-
-service "nginx" do
-  action :start
 end

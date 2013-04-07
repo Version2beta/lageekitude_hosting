@@ -21,15 +21,18 @@ execute "set locale" do
   only_if { `locale | grep -c UTF-8`.to_i == 0 }
 end
 
-gem_package "ruby-shadow" do
-  action :install
-end
 execute "apt-get upgrade" do
   command "apt-get -q -y upgrade"
 end
 execute "reboot" do
   command "reboot -f"
   only_if { File.exists?("/var/run/reboot-required") }
+end
+
+["ruby-shadow", "pry"].each do |g|
+  gem_package g do
+    action :install
+  end
 end
 
 [
@@ -71,22 +74,58 @@ execute "configure php-fpm" do
   not_if { ::File.exists?("/etc/php5/fpm/.recipe.flag") }
 end
 
-cookbook_file "/etc/nginx/nginx.conf" do
+username = node['user']['name']
+template "/etc/nginx/nginx.conf" do
   source "nginx.conf"
+  variables ({ :username => username })
   action :create
 end
+user username do
+  action :modify
+  home "/var/www/"
+  password `openssl passwd -1 "#{node['user']['password']}"`.strip
+end
 
-if node['user']['name']
-  user node['user']['name'] do
-    action :modify
-    home "/var/www/"
-    password `openssl passwd -1 "#{node['user']['password']}"`.strip
+["bin", ".vim"].each do |d|
+  directory "/root/#{d}" do
+    action :create
+  end
+  directory "/var/www/#{d}" do
+    action :create
+  end
+end
+
+cookbook_file "/var/www/bin/vcprompt" do
+  source "vcprompt"
+  action :create-if-missing
+end
+cookbook_file "/var/www/.vim/solarized.vim" do
+  source "solarized.vim"
+  action :create-if-missing
+end
+cookbook_file "/root/bin/vcprompt" do
+  source "vcprompt"
+  action :create-if-missing
+end
+cookbook_file "/root/.vim/solarized.vim" do
+  source "solarized.vim"
+  action :create-if-missing
+end
+
+[".bashrc", ".vimrc"].each do |f|
+  cookbook_file "/var/www/#{f}" do
+    source f
+    action :create-if-missing
+  end
+  cookbook_file "/root/#{f}" do
+    source f
+    action :create-if-missing
   end
 end
 
 directory "/var/www" do
-  owner "www-data"
-  group "www-data"
+  owner username
+  group username
   recursive true
 end
 

@@ -1,7 +1,7 @@
 # Cookbook Name:: lageekitude_base
 # Recipe:: default
 #
-# Copyright 2013, Example Com
+# Copyright 2013, Quintessential Mischief LLC
 #
 #
 
@@ -24,15 +24,15 @@ execute "set locale" do
 end
 
 execute "chruby in .bashrc" do
-  command "echo 'source /usr/local/share/chruby/chruby.sh && chruby 1.9.3' >> /root/.bashrc"
+  command <<-EOC
+  echo 'source /usr/local/share/chruby/chruby.sh && chruby 1.9.3' >> /root/.bashrc
+  touch /tmp/.chruby-in-bashrc
+  EOC
+  not_if { ::File.exists?("/tmp/.chruby-in-bashrc") }
 end
 
 execute "apt-get upgrade" do
   command "apt-get -q -y upgrade"
-end
-execute "reboot" do
-  command "reboot -f"
-  only_if { File.exists?("/var/run/reboot-required") }
 end
 
 ["ruby-shadow", "pry"].each do |g|
@@ -67,14 +67,14 @@ file "/etc/nginx/sites-enabled/default" do
   action :delete
 end
 
-cookbook_file "/php-fpm.tgz" do
+cookbook_file "/tmp/php-fpm.tgz" do
   source "php-fpm.tgz"
   not_if { ::File.exists?("/etc/php5/fpm/.recipe.flag") }
 end
 execute "configure php-fpm" do
   command <<-EOC
-  tar xzvf /php-fpm.tgz;
-  rm /php-fpm.tgz;
+  tar xzvf /tmp/php-fpm.tgz;
+  rm /tmp/php-fpm.tgz;
   touch /etc/php5/fpm/.recipe.flag
   EOC
   not_if { ::File.exists?("/etc/php5/fpm/.recipe.flag") }

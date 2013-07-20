@@ -1,4 +1,8 @@
 {
+  "user": {
+    "name": "",
+    "password": ""
+  },
   "python": {
     "install_method": "package"
   },

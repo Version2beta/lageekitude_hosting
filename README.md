@@ -15,13 +15,14 @@ To be determined. Right now, the emphasis is on Digital Ocean, 512MB / $5 per mo
 1. Order the server (Ubuntu 12.04LTS)
 1. Copy keys over
 1. Log in
-1. Create a basic build environment
-1. Install chruby
-1. Install a Ruby under chruby
-1. Install chef
+1. Run updates `apt-get update && apt-get upgrade`
+1. Create SSH keys `ssh-keygen`
+1. Create a basic build environment `apt-get install build-essential git-core`
+1. Install chruby from https://github.com/postmodern/chruby and run setup `. ./scripts/setup.sh`
+1. Install chef `curl -L https://www.opscode.com/chef/install.sh | sudo bash`
 1. Clone this repository
 1. Create lageekitude-base.json
-1. Run chef-solo against lageekitude-base
+1. Run chef-solo against lageekitude-base `chef-solo /root/sysadmin/lageekitude_hosting/solo.rb -j lageekitude-base.json`
 1. Create domain.json files
 1. Run chef-solo with new json files
 
